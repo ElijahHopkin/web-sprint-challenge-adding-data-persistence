@@ -9,7 +9,9 @@ exports.up = async function(knex) {
             .notNullable();
         tbl.string('project_description');
         tbl.boolean('project_completed')
-            .notNullable();
+            // .notNullable() 
+            .defaultTo('0');
+            // .boolean();
     })
     await knex.schema.createTable('resources', tbl=> {
         tbl.increments('resource_id');
