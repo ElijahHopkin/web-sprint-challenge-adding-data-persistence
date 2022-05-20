@@ -9,9 +9,8 @@ exports.up = async function(knex) {
             .notNullable();
         tbl.string('project_description');
         tbl.boolean('project_completed')
-            // .notNullable() 
-            .defaultTo('0');
-            // .boolean();
+            .defaultTo('false')
+            .notNullable();            
     })
     await knex.schema.createTable('resources', tbl=> {
         tbl.increments('resource_id');
@@ -26,6 +25,7 @@ exports.up = async function(knex) {
             .notNullable;
         tbl.string('task_notes');
         tbl.boolean('task_completed')
+            .defaultTo('false')
             .notNullable();
         tbl.integer('project_id')
             .unsigned()

@@ -3,8 +3,9 @@ const db = require('../../data/dbConfig')
 
 
 
-const getAll = () => {
-    return db('projects');
+ const  getAll = () => {
+    return db('projects')
+    .select('project_name', 'project_description', 'project_completed');
 }
 
  async function postProject(project) {
