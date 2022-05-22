@@ -24,7 +24,8 @@ projectsRouter.get('/', (req, res, next) => {
 
 projectsRouter.post('/', (req, res, next) => {
     if(req.body.project_completed && typeof req.body.project_completed!='boolean'){
-        res.status(400).json({message: 'project_completed must be true, false, or left to default'})
+        res.status(400)
+        // .json({message: 'project_completed must be true, false, or left to default'})
     }
     Projects.postProject(req.body)
         .then(result => {
