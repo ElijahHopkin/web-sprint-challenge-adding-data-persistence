@@ -7,7 +7,13 @@ const router = express.Router();
 router.get('/', (req, res, next) => {
     Tasks.findAll()
         .then(tasks => {
-            res.json(tasks)
+            res.json(tasks.map(task => {
+                if(task.task_completed===0){
+                    return({...task, task_completed: false})
+                }else{
+                    return({...task, task_completed: true})
+                }
+            }))
         })
         .catch(next)
 })
@@ -19,7 +25,7 @@ router.post('/', (req, res, next) => {
     
     Tasks.create(req.body)
         .then(newTask => {
-            res.status(201).json(newTask)
+            res.status(201).json({...newTask, task_completed: newTask.task_completed===0? false: true})
         })
         .catch(next)
 })

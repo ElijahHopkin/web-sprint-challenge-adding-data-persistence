@@ -9,8 +9,8 @@ exports.up = async function(knex) {
             .notNullable();
         tbl.string('project_description');
         tbl.boolean('project_completed')
-            .defaultTo('false')
-            .notNullable();            
+            .notNullable() 
+            .defaultTo(false);
     })
     await knex.schema.createTable('resources', tbl=> {
         tbl.increments('resource_id');
@@ -25,13 +25,15 @@ exports.up = async function(knex) {
             .notNullable;
         tbl.string('task_notes');
         tbl.boolean('task_completed')
-            .defaultTo('false')
-            .notNullable();
+            .notNullable()
+            .defaultTo(false);
         tbl.integer('project_id')
             .unsigned()
             .notNullable()
             .references('project_id')
-            .inTable('projects');
+            .inTable('projects')
+            .onUpdate('CASCADE')
+            .onDelete('CASCADE');
         
     })
     await knex.schema.createTable('project_resources', tbl => {
